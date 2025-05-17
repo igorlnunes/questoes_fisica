@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerador de Exercícios de Física</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body { font-family: sans-serif; }
+        .resultado { margin-top: 20px; border: 1px solid #ccc; padding: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Exercícios de Física</h1>
+
+    <div>
+        <label for="dificuldade">Dificuldade:</label>
+        <select id="dificuldade">
+            <option value="Iniciante">Iniciante</option>
+            <option value="Intermediário">Intermediário</option>
+            <option value="Avançado">Avançado</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="topico">Tópico:</label>
+        <select id="topico">
+            <option value="Cinemática">Cinemática</option>
+            <option value="Ondulatória">Ondulatória</option>
+            <option value="Dinâmica">Dinâmica</option>
+        </select>
+    </div>
+
+    <button onclick="gerarExercicio()">Gerar Exercício</button>
+
+    <div id="resultado" class="resultado" style="display: none;">
+        <h2>Resultado:</h2>
+        <p><strong>Alternativa Correta:</strong> <span id="alternativa"></span></p>
+        <p><strong>Resolução:</strong> <span id="resolucao"></span></p>
+    </div>
+
+    <script>
+        async function gerarExercicio() {
+            const dificuldade = document.getElementById("dificuldade").value;
+            const topico = document.getElementById("topico").value;
+
+            const data = { dificuldade: dificuldade, topico: topico };
+
+            try {
+                const response = await fetch('http://172.28.0.12:5000/gerar_exercicio', { // Substitua pela URL do seu backend
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    alert(`Erro ao gerar exercício: ${error.error || 'Erro desconhecido'}`);
+                    return;
+                }
+
+                const resultado = await response.json();
+                document.getElementById("alternativa").textContent = resultado.alternativa_correta;
+                document.getElementById("resolucao").textContent = resultado.resolucao; // Se a resolução não for LaTeX
+                // Se a resolução for LaTeX, você precisará usar MathJax ou KaTeX para renderizar
+                // Por exemplo, com MathJax:
+                document.getElementById("resolucao").innerHTML = `\\(${resultado.resolucao}\\)`;
+                MathJax.typesetPromise().then(() => {});
+
+                document.getElementById("resultado").style.display = 'block';
+
+            } catch (error) {
+                console.error("Erro ao fazer a requisição:", error);
+                alert("Ocorreu um erro ao gerar o exercício.");
+            }
+        }
+    </script>
+</body>
+</html>
