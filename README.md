@@ -1,73 +1,59 @@
-# ⚛️ Física Genial: Exercícios de Física com Inteligência Artificial para o Ensino Médio 🚀
+# Gerador de Questões de Física com Resolução
 
-**Desvende os mistérios da física de forma interativa e inteligente!**
+Este projeto é um conjunto de scripts Python que utilizam o modelo Gemini para gerar questões de física de múltipla escolha e suas respectivas resoluções passo a passo. Ele foi desenvolvido para auxiliar na criação de materiais didáticos e avaliações para estudantes do ensino médio.
 
-## 💡 Sobre o Projeto
+## Exemplo de Uso
 
-Este projeto inovador utiliza a inteligência artificial do Gemini para gerar exercícios de física sob demanda, focados nos principais tópicos do Ensino Médio: Cinemática, Ondulatória e Dinâmica. Ideal para estudantes que buscam praticar e aprofundar seus conhecimentos, e para educadores que desejam recursos dinâmicos e personalizados.
+![Texto alternativo para o GIF](assets/exemplo.gif)
 
-Com uma interface simples e intuitiva, o usuário pode selecionar o tópico e o nível de dificuldade desejado e, instantaneamente, receber uma questão inédita. Mas a jornada de aprendizado não para por aí! Cada questão vem acompanhada da **alternativa correta** para uma verificação rápida e de uma **resolução detalhada**, passo a passo, utilizando a clareza do texto e a precisão da notação LaTeX.
+1.  Execute as células do Colab sequencialmente.
+2.  Utilize os dropdowns para selecionar o tópico e a dificuldade da questão.
+3.  Clique no botão "Gerar Questão" para gerar a questão.
+4.  Clique em "Revelar Resposta" para ver a resposta correta.
+5.  Clique em "Mostrar Resolução" para ver a resolução detalhada.
 
-## ✨ Funcionalidades Principais
+## Funcionalidades
 
-* **Geração Dinâmica de Questões:** Crie exercícios únicos sobre Cinemática, Ondulatória e Dinâmica, com o poder do Gemini.
-* **Seleção de Dificuldade:** Escolha entre os níveis Iniciante, Intermediário e Avançado para adequar o desafio ao seu nível de aprendizado.
-* **Resposta Direta:** Verifique sua compreensão com a indicação imediata da alternativa correta.
-* **Resolução Detalhada:** Desvende o passo a passo da solução, com explicações claras e fórmulas em LaTeX para um aprendizado completo.
-* **Interface Amigável:** Uma experiência de usuário simples e direta, focada na praticidade do estudo.
+* **Geração de Questões:** O script permite gerar questões de física especificando o tópico (Cinemática, Ondulatória, Dinâmica) e a dificuldade (Iniciante, Intermediário, Avançado).
+* **Formato de Saída:** As questões são geradas em formato JSON, contendo o enunciado, as opções de múltipla escolha (A, B, C, D) e a resposta correta.
+* **Resolução Detalhada:** Para cada questão gerada, o script também pode gerar uma resolução detalhada, explicando o passo a passo da solução, incluindo fórmulas e cálculos em notação LaTeX.
+* **Interface Interativa:** O projeto inclui widgets interativos (dropdowns e botões) para facilitar a seleção de tópicos, dificuldades e a geração das questões e resoluções.
 
-## 🛠️ Tecnologias Utilizadas
+## Como Funciona
 
-* **Backend:**
-    * **Python:** A linguagem de programação principal para a lógica do backend.
-    * **Flask:** Um microframework web para construir a API que serve o frontend.
-    * **Google AI SDK (Gemini):** A inteligência artificial por trás da geração de questões e resoluções.
-    * **Flask-CORS:** Para habilitar o acesso à API de diferentes origens (o frontend).
-* **Frontend:**
-    * **HTML:** Para a estrutura da página web.
-    * **CSS:** Para a estilização e o layout da interface.
-    * **JavaScript:** Para a interatividade e a comunicação com o backend.
-    * **`fetch` API:** Para realizar as requisições HTTP ao backend.
-    * **`polyfill.io`:** Para garantir compatibilidade com navegadores mais antigos.
-    * **MathJax:** Para a renderização elegante de notações matemáticas em LaTeX.
-* **Ambiente de Desenvolvimento e Testes:**
-    * **Google Colaboratory (Colab):** Plataforma utilizada para o desenvolvimento e testes do backend.
+O projeto é estruturado em células de um Colab do Google, organizado da seguinte forma:
 
-## 🚀 Como Utilizar
+1.  **Configuração e Importações:**
+    * Configura a API Key do Google Gemini.
+    * Importa as bibliotecas necessárias (google.genai, ipywidgets, etc.).
+2.  **Funções Auxiliares:**
+    * `to_markdown(text)`: Formata o texto para exibição em Markdown.
+    * `display_markdown_with_mathjax(markdown_string)`: Exibe texto Markdown com suporte a MathJax para renderização de fórmulas.
+3.  **Funções de Geração:**
+    * `gerar_enunciado_alternativas_resposta(topico, dificuldade)`: Gera a questão de física.
+    * `gerar_resolucao_estruturada(enunciado, resposta_correta)`: Gera a resolução da questão.
+4.  **Widgets e Interação:**
+    * Cria os widgets de dropdown (para tópico e dificuldade) e botões (para gerar questão, revelar resposta e mostrar resolução).
+    * Define as funções que tratam os eventos de clique dos botões, controlando o fluxo da aplicação e a exibição dos resultados.
+5.  **Exibição dos Widgets:**
+    * Exibe os widgets na interface do Colab.
 
-1.  **Backend (Google Colab - para desenvolvedores):**
-    * Abra o notebook Python no Google Colab (`backend/app.ipynb` ou similar).
+## Requisitos
 
-2.  **Frontend (Navegador):**
-    * Abra o arquivo `frontend/index.html` no seu navegador web.
-    * Selecione a **Dificuldade** desejada (Iniciante, Intermediário, Avançado).
-    * Selecione o **Tópico** de seu interesse (Cinemática, Ondulatória, Dinâmica).
-    * Clique no botão "Gerar Exercício".
-    * A questão gerada, a alternativa correta e a resolução detalhada serão exibidas na tela.
+* Conta no Google Colab
+* API Key do Google Gemini configurada no Colab (User Data)
+* Conhecimento básico de Python
 
-## 🧑‍💻 Para Desenvolvedores
+## Instalação
 
-Se você deseja contribuir ou entender melhor o código:
+1.  Abra o Colab do Google.
+2.  Crie um novo notebook ou faça upload dos arquivos do projeto.
+3.  Configure sua API Key do Gemini no Colab usando User Data.
 
-* **Backend (`backend/app.py`):** Contém a lógica principal do Agente que utiliza o Gemini para gerar as questões e resoluções. As funções `gerar_enunciado_alternativas_resposta_tool` e `gerar_resolucao_tool` são as peças chave. A função `obter_questao_e_resolucao` orquestra a interação com o Agente.
-* **Frontend (`frontend/index.html` e `frontend/script.js`):** O `index.html` define a estrutura da página e o `script.js` contém o JavaScript para capturar as seleções do usuário e fazer a chamada à API do backend, além de exibir os resultados.
+## Contribuição
 
-## 🚀 Próximos Passos e Melhorias
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests para melhorar o projeto.
 
-* Adicionar mais tópicos da física para o Ensino Médio.
-* Implementar diferentes formatos de questões (discursivas, verdadeiro/falso).
-* Permitir a personalização do número de alternativas.
-* Criar um sistema de feedback para avaliar a qualidade das questões e resoluções.
-* Integrar um sistema de acompanhamento do progresso do usuário.
-* Otimizar a comunicação entre o frontend e o backend.
-* Considerar o deploy do backend em uma plataforma mais robusta para acesso contínuo.
+## Licença
 
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues para relatar bugs ou sugerir melhorias, e pull requests com novas funcionalidades ou correções.
-
-## 📄 Licença
-
-[Insira aqui a licença do seu projeto, por exemplo, MIT License]
-
-## 🎉 Divirta-se aprendendo física de uma maneira totalmente nova! 🎉
+Este projeto é licenciado sob a Licença MIT - veja o arquivo [LICENSE](License.md) para detalhes.
